@@ -1,0 +1,15 @@
+{
+    "name": "basicapp/noteapp",
+    "description": "Aplicacion Web Basica para aplicar el uso del patron MVC con PHP",
+    "autoload": {
+        "psr-4": {
+            "Basicapp\\Noteapp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Y"
+        }
+    ],
+    "require": {}
+}
