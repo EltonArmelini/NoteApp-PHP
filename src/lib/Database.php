@@ -15,11 +15,11 @@ class Database {
 
     public function __construct()
     {
-        $this->host = 'localhost';
-        $this->db = 'noteapp';
-        $this->user = 'root';
-        $this->password = '';
-        $this->charset =  'utf8mb4';
+        $this->host = $_ENV['DB_HOST'];
+        $this->db = $_ENV['DB_NAME'];
+        $this->user = $_ENV['DB_USER'];
+        $this->password = $_ENV['DB_PASS'];
+        $this->charset = $_ENV['DB_CHARSET'];
     }
 
     public function connection(){
@@ -31,8 +31,8 @@ class Database {
             ];
             $pdo = new PDO($connection,$this->user,$this->password,$options);
             return $pdo;
-        } catch (\Throwable $th) {
-            throw $th;
+        } catch (PDOException $e) {
+            echo "Error -> ".$e->getMessage();
         }
     }
 }
