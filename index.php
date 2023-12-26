@@ -1,5 +1,5 @@
 <?php 
-require __DIR__ . '/vendor/autoload.php'; // Ruta al archivo autoload.php de Composer
+require 'vendor/autoload.php'; // Ruta al archivo autoload.php de Composer
 use Dotenv\Dotenv;
 
 
@@ -7,3 +7,4 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
+require 'src/app.php';

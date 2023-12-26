@@ -1,7 +1,7 @@
 <?php 
 
 
-namespace BasicApp\Noteapp\lib;
+namespace src\lib;
 
 use PDO;
 use PDOException;

@@ -1,7 +1,7 @@
 <?php 
 
-namespace BasicApp\Noteapp\models;
-use BasicApp\Noteapp\lib\Database; 
+namespace src\models;
+use src\lib\Database; 
 use PDO;
 
 class Note extends Database{
@@ -9,14 +9,15 @@ class Note extends Database{
 
     private string $uuid;
     
-    public function __construct(private string $title,private string $content ) {
+    public function __construct(private string $title,private string $content ) 
+    {
         parent::__construct();
 
         $this->uuid = uniqid();
 
     }
-
-    public function save(){
+    public function save()
+    {
         $query = $this->connection()->prepare("INSERT INTO notes(uuid,title,content,updated) VALUES (:uuid,:title, :content,NOW())");
         $query->execute(
             ['title'=>$this->title,
@@ -26,18 +27,19 @@ class Note extends Database{
         ); 
 
     }
-    public function update(){
-        $query = $this->connection()->prepare("UPDATE notes SET title = :title, title = :content, update = NOW() WHERE uuid = :uuid");
+    public function update()
+    { 
+        $query = $this->connection()->prepare("UPDATE notes SET title = :title, content= :content, updated = NOW() WHERE uuid = :uuid");
         $query->execute(
-            ['title'=>$this->title,
+            ['title'=>trim($this->title),
              'uuid'=>$this->uuid,
-             'content'=>$this->content
+             'content'=>trim($this->content)
             ]
         ); 
 
     }
-
-    public static function get($uuid){
+    public static function get($uuid)
+    {
 
         $db = new Database; 
         $query = $db->connection()->prepare("SELECT * FROM notes WHERE uuid = :uuid");
@@ -45,7 +47,16 @@ class Note extends Database{
         $note = Note::createFromArray($query->fetch(PDO::FETCH_ASSOC));
         return $note;
     }
-
+    public static function getAll(){
+        $notes = [];
+        $db = new Database;
+        $query = $db->connection()->query("SELECT * FROM notes");
+        while ( $record = $query->fetch(PDO::FETCH_ASSOC)) {
+            $note = Note::createFromArray($record);
+             array_push($notes, $note);
+        }
+        return $notes;
+    }
     public static function createFromArray($arr):Note
     {
         $note = new Note($arr['title'],$arr['content']); 

@@ -3,12 +3,12 @@
     "description": "Aplicacion Web Basica para aplicar el uso del patron MVC con PHP",
     "autoload": {
         "psr-4": {
-            "Basicapp\\Noteapp\\": "src/"
+            "src\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Y"
+            "name": "eltonarmelini"
         }
     ],
     "require": {
